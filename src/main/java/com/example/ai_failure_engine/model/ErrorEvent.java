@@ -1,12 +1,22 @@
 package com.example.ai_failure_engine.model;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ErrorEvent {
+    @NotBlank(message = "serviceName is required")
     private String serviceName;
+
+    @NotBlank(message = "errorCode is required")
     private String errorCode;
+
+    @NotBlank(message = "message is required")
     private String message;
+
+    @NotBlank(message = "severity is required")
     private String severity;
+
+    @NotNull(message = "timestamp is required")
     private LocalDateTime timestamp;
 
     public ErrorEvent() {
