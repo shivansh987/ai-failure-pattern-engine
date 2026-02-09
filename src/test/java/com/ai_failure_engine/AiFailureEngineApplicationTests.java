@@ -1,4 +1,4 @@
-package com.example.ai_failure_engine;
+package com.ai_failure_engine;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
