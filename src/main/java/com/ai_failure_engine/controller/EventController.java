@@ -1,6 +1,6 @@
-package com.example.ai_failure_engine.controller;
+package com.ai_failure_engine.controller;
 
-import com.example.ai_failure_engine.model.ErrorEvent;
+import com.ai_failure_engine.model.ErrorEvent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.example.ai_failure_engine;
+package com.ai_failure_engine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
