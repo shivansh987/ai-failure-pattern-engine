@@ -14,11 +14,8 @@ public class EventController {
     public ResponseEntity<String> receiveEvent(@Valid @RequestBody ErrorEvent errorEvent) {
 
         System.out.println("===== ERROR EVENT RECEIVED =====");
-        System.out.println("Service Name: " + errorEvent.getServiceName());
-        System.out.println("Error Code: " + errorEvent.getErrorCode());
-        System.out.println("Message: " + errorEvent.getMessage());
-        System.out.println("Severity: " + errorEvent.getSeverity());
-        System.out.println("Timestamp: " + errorEvent.getTimestamp());
+        System.out.println(errorEvent.getServiceName());
+        System.out.println(errorEvent.getSeverity());
         System.out.println("================================");
 
         return new ResponseEntity<>("Event received successfully", HttpStatus.CREATED);

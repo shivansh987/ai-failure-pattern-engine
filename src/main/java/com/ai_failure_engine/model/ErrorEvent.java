@@ -1,25 +1,31 @@
 package com.ai_failure_engine.model;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "error_events")
 public class ErrorEvent {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotBlank(message = "serviceName is required")
+    @Column(nullable = false)
     private String serviceName;
 
-    @NotBlank(message = "errorCode is required")
-    private String errorCode;
-
-    @NotBlank(message = "message is required")
-    private String message;
-
-    @NotBlank(message = "severity is required")
+    @NotNull(message = "severity is required")
+    @Column(nullable = false)
     private String severity;
 
-    @NotNull(message = "timestamp is required")
-    private LocalDateTime timestamp;
-
     public ErrorEvent() {
+        // required by JPA
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getServiceName() {
@@ -30,35 +36,11 @@ public class ErrorEvent {
         this.serviceName = serviceName;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getSeverity() {
         return severity;
     }
 
     public void setSeverity(String severity) {
         this.severity = severity;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
     }
 }
