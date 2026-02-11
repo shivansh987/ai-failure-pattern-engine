@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -26,5 +27,8 @@ public class ErrorEventService {
 
     public List<ErrorEvent> getAllEvents() {
         return errorEventRepository.findAll();
+    }
+    public List<ErrorEvent> getEventsByTimeRange(Instant from, Instant to) {
+        return errorEventRepository.findByCreatedAtBetween(from, to);
     }
 }
