@@ -3,6 +3,8 @@ package com.ai_failure_engine.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.time.Instant;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "error_events")
@@ -23,6 +25,10 @@ public class ErrorEvent {
     @NotBlank(message = "message is required")
     @Column(nullable = false)
     private String message;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
 
     public ErrorEvent() {
     }
@@ -53,6 +59,10 @@ public class ErrorEvent {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 }
 
