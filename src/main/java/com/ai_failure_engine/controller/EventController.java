@@ -1,6 +1,7 @@
 package com.ai_failure_engine.controller;
 
 import com.ai_failure_engine.model.ErrorEvent;
+import com.ai_failure_engine.service.ErrorEventService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +11,22 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/v1/events")
 public class EventController {
 
+    private final ErrorEventService errorEventService;
+
+    public EventController(ErrorEventService errorEventService) {
+        this.errorEventService = errorEventService;
+    }
+
     @PostMapping
-    public ResponseEntity<String> receiveEvent(@Valid @RequestBody ErrorEvent errorEvent) {
+    public ResponseEntity<String> receiveEvent(
+            @Valid @RequestBody ErrorEvent errorEvent) {
 
-        System.out.println("===== ERROR EVENT RECEIVED =====");
-        System.out.println(errorEvent.getServiceName());
-        System.out.println(errorEvent.getSeverity());
-        System.out.println("================================");
+        errorEventService.save(errorEvent);
 
-        return new ResponseEntity<>("Event received successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                "Event saved successfully",
+                HttpStatus.CREATED
+        );
     }
 }
+
