@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/events")
 public class EventController {
@@ -28,5 +30,11 @@ public class EventController {
                 HttpStatus.CREATED
         );
     }
+    @GetMapping
+    public ResponseEntity<List<ErrorEvent>> getAllEvents() {
+        List<ErrorEvent> events = errorEventService.getAllEvents();
+        return ResponseEntity.ok(events);
+    }
 }
+
 

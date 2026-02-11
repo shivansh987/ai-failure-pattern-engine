@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ErrorEventService {
 
@@ -20,5 +22,9 @@ public class ErrorEventService {
         ErrorEvent saved = errorEventRepository.save(errorEvent);
         System.out.println("Saved ID: " + saved.getId());
         return saved;
+    }
+
+    public List<ErrorEvent> getAllEvents() {
+        return errorEventRepository.findAll();
     }
 }
