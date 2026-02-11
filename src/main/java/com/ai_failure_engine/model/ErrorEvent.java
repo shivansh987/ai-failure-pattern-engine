@@ -20,8 +20,11 @@ public class ErrorEvent {
     @Column(nullable = false)
     private String severity;
 
+    @NotBlank(message = "message is required")
+    @Column(nullable = false)
+    private String message;
+
     public ErrorEvent() {
-        // required by JPA
     }
 
     public Long getId() {
@@ -43,4 +46,13 @@ public class ErrorEvent {
     public void setSeverity(String severity) {
         this.severity = severity;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
+
