@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -31,9 +32,15 @@ public class EventController {
         );
     }
     @GetMapping
-    public ResponseEntity<List<ErrorEvent>> getAllEvents() {
-        List<ErrorEvent> events = errorEventService.getAllEvents();
-        return ResponseEntity.ok(events);
+    public ResponseEntity<List<ErrorEvent>> getEvents(
+            @RequestParam(required = false) Instant from,
+            @RequestParam(required = false) Instant to) {
+
+        if (from != null && to != null) {
+            return ResponseEntity.ok(errorEventService.getEventsByTimeRange(from, to));
+        }
+
+        return ResponseEntity.ok(errorEventService.getAllEvents());
     }
 }
 
