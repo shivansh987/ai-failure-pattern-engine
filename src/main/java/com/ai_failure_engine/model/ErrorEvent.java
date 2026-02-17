@@ -5,7 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
-
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 @Entity
 @Table(name = "error_events")
 public class ErrorEvent {
@@ -18,9 +19,9 @@ public class ErrorEvent {
     @Column(nullable = false)
     private String serviceName;
 
-    @NotNull(message = "severity is required")
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String severity;
+    private Severity severity;
 
     @NotBlank(message = "message is required")
     @Column(nullable = false)
@@ -45,11 +46,11 @@ public class ErrorEvent {
         this.serviceName = serviceName;
     }
 
-    public String getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
 
-    public void setSeverity(String severity) {
+    public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 
