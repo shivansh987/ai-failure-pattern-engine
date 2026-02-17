@@ -9,6 +9,11 @@ import jakarta.validation.Valid;
 
 import java.time.Instant;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+
 
 @RestController
 @RequestMapping("/api/v1/events")
@@ -32,15 +37,13 @@ public class EventController {
         );
     }
     @GetMapping
-    public ResponseEntity<List<ErrorEvent>> getEvents(
+    public ResponseEntity<Page<ErrorEvent>> getEvents(
             @RequestParam(required = false) Instant from,
-            @RequestParam(required = false) Instant to) {
+            @RequestParam(required = false) Instant to,
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable) {
 
-        if (from != null && to != null) {
-            return ResponseEntity.ok(errorEventService.getEventsByTimeRange(from, to));
-        }
-
-        return ResponseEntity.ok(errorEventService.getAllEvents());
+        return ResponseEntity.ok(errorEventService.getEvents(from, to, pageable));
     }
 }
 
