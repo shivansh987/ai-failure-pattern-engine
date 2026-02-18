@@ -8,19 +8,35 @@ import java.time.Instant;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 @Service
 public class ErrorEventService {
 
     private final ErrorEventRepository errorEventRepository;
+    private final PatternDetectionService patternDetectionService;
 
-    public ErrorEventService(ErrorEventRepository errorEventRepository) {
+    // ✅ Constructor Injection (IMPORTANT)
+    public ErrorEventService(ErrorEventRepository errorEventRepository,
+                             PatternDetectionService patternDetectionService) {
         this.errorEventRepository = errorEventRepository;
+        this.patternDetectionService = patternDetectionService;
     }
 
     @Transactional
     public ErrorEvent save(ErrorEvent errorEvent) {
+
         ErrorEvent saved = errorEventRepository.save(errorEvent);
+
+        boolean spike = patternDetectionService
+                .isSpikeDetected(saved.getServiceName());
+
+        if (spike) {
+            System.out.println("⚠️ SPIKE DETECTED for service: "
+                    + saved.getServiceName());
+        }
+
         System.out.println("Saved ID: " + saved.getId());
+
         return saved;
     }
 
