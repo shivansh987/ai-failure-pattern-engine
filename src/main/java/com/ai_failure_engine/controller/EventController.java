@@ -1,5 +1,6 @@
 package com.ai_failure_engine.controller;
 
+import com.ai_failure_engine.dto.AlertResponse;
 import com.ai_failure_engine.model.ErrorEvent;
 import com.ai_failure_engine.service.ErrorEventService;
 import org.springframework.http.HttpStatus;
@@ -26,15 +27,12 @@ public class EventController {
     }
 
     @PostMapping
-    public ResponseEntity<String> receiveEvent(
+    public ResponseEntity<AlertResponse> createEvent(
             @Valid @RequestBody ErrorEvent errorEvent) {
 
-        errorEventService.save(errorEvent);
+        AlertResponse response = errorEventService.save(errorEvent);
 
-        return new ResponseEntity<>(
-                "Event saved successfully",
-                HttpStatus.CREATED
-        );
+        return ResponseEntity.ok(response);
     }
     @GetMapping
     public ResponseEntity<Page<ErrorEvent>> getEvents(
